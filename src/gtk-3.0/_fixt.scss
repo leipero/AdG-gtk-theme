@@ -1,0 +1,35 @@
+/****************
+ * Fixing Theme *
+ ***************/
+
+.nautilus-window {
+	background: $base_color; }
+
+.nautilus-window treeview .view {
+	color: $text_color;
+	background: $base_color;
+	border-bottom: 1px solid mix($fg_color, $bg_color, 20%); }
+
+.nautilus-window treeview .view:selected {
+	color: $selected_fg_color;
+	background: $selected_bg_color; }
+
+.nautilus-desktop.nautilus-canvas-item {
+	color: $base_color;
+	text-shadow: 1px 1px $text_color; }
+
+.nautilus-window .floating-bar {
+	background-color: $base_color;
+	color: $fg_color; }
+
+.nautilus-window .searchbar-container {
+	margin-top: -1px }
+
+.disk-space-display.unknown {
+	background-color: $top_hilight; }
+
+.disk-space-display.used {
+	background-color: $selected_bg_color; }
+
+.disk-space-display.free {
+	background-color: $osd_fg_color; }
