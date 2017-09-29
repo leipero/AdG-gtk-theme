@@ -3,8 +3,7 @@ Slight gray modification of Adwaita theme from the GNOME Project.
 
 This is still WIP, only Gnome 3 is supported.
 
-Run "./configure" then "make" to generate the theme. Run "make install" to install locally or "sudo make install" to isntall globally.
-
+Run "./configure" then "make" to generate the theme. Run "make install" to install locally.
 AUR:
 https://aur.archlinux.org/packages/adg-gtk-theme/
 
