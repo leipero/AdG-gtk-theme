@@ -7,5 +7,5 @@ Run "./configure" then "make" to generate the theme.
 
 Used from:
 https://github.com/GNOME/gnome-themes-standard
-
 https://github.com/GNOME/gnome-shell
+https://github.com/Jazqa/adwaita-tweaks
