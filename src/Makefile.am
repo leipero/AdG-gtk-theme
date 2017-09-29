@@ -1,4 +1,6 @@
-bdir       = $(top_srcdir)/install
+AUTOMAKE_OPTIONS = subdir-objects
+
+bdir       = $(top_srcdir)/build-aux
 themedir   = $(bdir)/themes
 lthemedir  = $(themedir)/AdG-Light
 dthemedir  = $(themedir)/AdG-Dark
@@ -7,7 +9,6 @@ all:
 	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css && sassc gnome-shell-light.scss gnome-shell-light.css
 	cd $(srcdir)/gtk-3.0 && ./parse-sass.sh
 	$(MKDIR_P) $(themedir)
-	$(MKDIR_P) $(bdir)
 	$(MKDIR_P) $(lthemedir)/gnome-shell
 	$(MKDIR_P) $(dthemedir)/gnome-shell
 	$(MKDIR_P) $(lthemedir)/gtk-2.0

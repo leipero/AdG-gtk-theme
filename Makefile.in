@@ -273,14 +273,13 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-bdir = $(top_srcdir)/install
+AUTOMAKE_OPTIONS = subdir-objects
+bdir = $(top_srcdir)/build-aux
 themedir = $(bdir)/themes
 dthemedir = $(themedir)/AdG-Dark
 lthemedir = $(themedir)/AdG-Light
-ithemeldir = $(DESTDIR_LOCAL)
 ithemedir = $(DESTDIR)
-DESTDIR = /usr/share
-DESTDIR_LOCAL = $(top_srcdir)
+DESTDIR = /usr/share/
 EXTRA_DIST = \
 	README.md \
 	COPYING
@@ -289,7 +288,7 @@ SUBDIRS = src
 CLEANFILES = $(srcdir)/config.log \
 	     $(srcdir)/config.status \
 	     $(srcdir)/Makefile \
-	     rm -rf $(bdir)
+	     rm -rf $(themedir)
 
 DISTCLEANFILES = $(CLEANFILES)
 all: all-recursive
@@ -630,6 +629,7 @@ installdirs: installdirs-recursive
 installdirs-am:
 install: install-recursive
 install-exec: install-exec-recursive
+install-data: install-data-recursive
 uninstall: uninstall-recursive
 
 install-am: all-am
@@ -687,8 +687,7 @@ install-dvi: install-dvi-recursive
 install-dvi-am:
 
 install-exec-am:
-	@$(NORMAL_INSTALL)
-	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
+
 install-html: install-html-recursive
 
 install-html-am:
@@ -729,8 +728,7 @@ ps-am:
 
 uninstall-am: uninstall-local
 
-.MAKE: $(am__recursive_targets) install-am install-exec-am \
-	install-strip
+.MAKE: $(am__recursive_targets) install-am install-strip
 
 .PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am \
 	am--refresh check check-am clean clean-cscope clean-generic \
@@ -740,31 +738,23 @@ uninstall-am: uninstall-local
 	distcleancheck distdir distuninstallcheck dvi dvi-am html \
 	html-am info info-am install install-am install-data \
 	install-data-am install-data-local install-dvi install-dvi-am \
-	install-exec install-exec-am install-exec-hook install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags \
-	tags-am uninstall uninstall-am uninstall-local
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
+	uninstall-am uninstall-local
 
 .PRECIOUS: Makefile
 
 
-install-exec-hook:
-
-install-data:
+install-data-local:
 	cp -r $(themedir) $(ithemedir)
 
-uninstall-data:
-	rm -rf $(ithemedir)/themes/AdG-Dark
-	rm -rf $(ithemedir)/themes/AdG-Light
-
-install-data-local:
-	cp -r $(themedir) $(ithemeldir)
-
 uninstall-local:
-	rm -rf $(ithemeldir)/themes
+	rm -rf $(ithemedir)themes/AdG-Dark
+	rm -rf $(ithemedir)themes/AdG-Light
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
