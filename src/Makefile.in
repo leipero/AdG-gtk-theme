@@ -193,8 +193,8 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 bdir = $(top_srcdir)/build-aux
 themedir = $(bdir)/themes
-lthemedir = $(themedir)/AdG-Light
 dthemedir = $(themedir)/AdG-Dark
+lthemedir = $(themedir)/AdG-Light
 EXTRA_DIST = $(srcdir)/gnome-shell \
 	     $(srcdir)/gtk-2.0 \
 	     $(srcdir)/gtk-3.0 \

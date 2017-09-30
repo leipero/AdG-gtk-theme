@@ -2,8 +2,8 @@ AUTOMAKE_OPTIONS = subdir-objects
 
 bdir       = $(top_srcdir)/build-aux
 themedir   = $(bdir)/themes
-lthemedir  = $(themedir)/AdG-Light
 dthemedir  = $(themedir)/AdG-Dark
+lthemedir  = $(themedir)/AdG-Light
 
 all:
 	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css && sassc gnome-shell-light.scss gnome-shell-light.css
