@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/shell/theme">
+    <file>assets/calendar-arrow-left.svg</file>
+    <file>assets/calendar-arrow-right.svg</file>
+    <file>assets/calendar-today.svg</file>
+    <file>assets/checkbox-focused.svg</file>
+    <file>assets/checkbox-off-focused.svg</file>
+    <file>assets/checkbox-off.svg</file>
+    <file>assets/checkbox.svg</file>
+    <file>assets/close-window.svg</file>
+    <file>assets/close.svg</file>
+    <file>assets/corner-ripple-ltr.png</file>
+    <file>assets/corner-ripple-rtl.png</file>
+    <file>assets/dash-placeholder.svg</file>
+    <file>assets/filter-selected-ltr.svg</file>
+    <file>assets/filter-selected-rtl.svg</file>
+    <file>gnome-shell.css</file>
+    <file>gnome-shell-high-contrast.css</file>
+    <file>assets/logged-in-indicator.svg</file>
+    <file>assets/no-events.svg</file>
+    <file>assets/no-notifications.svg</file>
+    <file>assets/noise-texture.png</file>
+    <file>assets/page-indicator-active.svg</file>
+    <file>assets/page-indicator-inactive.svg</file>
+    <file>assets/page-indicator-checked.svg</file>
+    <file>assets/page-indicator-hover.svg</file>
+    <file>assets/process-working.svg</file>
+    <file>assets/running-indicator.svg</file>
+    <file>assets/source-button-border.svg</file>
+    <file>assets/summary-counter.svg</file>
+    <file>assets/toggle-off-us.svg</file>
+    <file>assets/toggle-off-intl.svg</file>
+    <file>assets/toggle-on-hc.svg</file>
+    <file>assets/toggle-on-us.svg</file>
+    <file>assets/toggle-on-intl.svg</file>
+    <file>assets/ws-switch-arrow-up.png</file>
+    <file>assets/ws-switch-arrow-down.png</file>
+  </gresource>
+</gresources>
