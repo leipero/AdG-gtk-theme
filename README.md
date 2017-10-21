@@ -35,7 +35,7 @@ You can find GDM themes in `.../build-aux/themes/gdm/...` (dark and light versio
 
 #### Sources:
 
-      https://github.com/GNOME/gtk.git
-      https://github.com/GNOME/gnome-themes-standard
-      https://github.com/GNOME/gnome-shell
-      https://github.com/Jazqa/adwaita-tweaks
+   https://github.com/GNOME/gtk.git
+   https://github.com/GNOME/gnome-themes-standard
+   https://github.com/GNOME/gnome-shell
+   https://github.com/Jazqa/adwaita-tweaks
