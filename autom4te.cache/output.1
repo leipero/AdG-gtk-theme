@@ -586,6 +586,8 @@ PACKAGE_URL=''
 
 ac_subst_vars='LTLIBOBJS
 LIB@&t@OBJS
+ENABLE_ASSETS_FALSE
+ENABLE_ASSETS_TRUE
 ENABLE_GDM_FALSE
 ENABLE_GDM_TRUE
 SASSC
@@ -659,6 +661,7 @@ ac_user_opts='
 enable_option_checking
 enable_silent_rules
 enable_gdm
+enable_assets
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1279,7 +1282,8 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-silent-rules   less verbose build output (undo: "make V=1")
   --disable-silent-rules  verbose build output (undo: "make V=0")
-  --enable-gdm         Include gdm theme
+  --enable-gdm         Build GDM theme
+  --enable-assets         Render GTK assets
 
 Report bugs to <https://github.com/leipero/adg-gtk-theme>.
 _ACEOF
@@ -2350,6 +2354,22 @@ else
 fi
 
 
+@%:@ Check whether --enable-assets was given.
+if test "${enable_assets+set}" = set; then :
+  enableval=$enable_assets; ENABLE_ASSETS="$enableval"
+else
+  ENABLE_ASSETS="no"
+fi
+
+ if test "x$ENABLE_ASSETS" = "xyes"; then
+  ENABLE_ASSETS_TRUE=
+  ENABLE_ASSETS_FALSE='#'
+else
+  ENABLE_ASSETS_TRUE='#'
+  ENABLE_ASSETS_FALSE=
+fi
+
+
 ac_config_files="$ac_config_files Makefile src/Makefile"
 
 cat >confcache <<\_ACEOF
@@ -2508,6 +2528,10 @@ $as_echo "done" >&6; }
 
 if test -z "${ENABLE_GDM_TRUE}" && test -z "${ENABLE_GDM_FALSE}"; then
   as_fn_error $? "conditional \"ENABLE_GDM\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${ENABLE_ASSETS_TRUE}" && test -z "${ENABLE_ASSETS_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_ASSETS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

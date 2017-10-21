@@ -396,6 +396,13 @@ uninstall-am:
 
 
 all:
+@ENABLE_ASSETS_TRUE@	rm $(srcdir)/gtk-3.0/assets/*.png
+@ENABLE_ASSETS_TRUE@	cd $(srcdir)/gtk-3.0 && ./render-assets.sh
+@ENABLE_ASSETS_TRUE@	cp $(srcdir)/gtk-3.0/common/* $(srcdir)/gtk-3.0/assets/
+@ENABLE_ASSETS_TRUE@	rm $(srcdir)/gtk-2.0/assets/*.png
+@ENABLE_ASSETS_TRUE@	rm $(srcdir)/gtk-2.0/assets-dark/*.png
+@ENABLE_ASSETS_TRUE@	cd $(srcdir)/gtk-2.0 && ./render-assets.sh
+@ENABLE_ASSETS_TRUE@	cd $(srcdir)/gtk-2.0 && ./render-assets-external.sh
 	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css && sassc gnome-shell-light.scss gnome-shell-light.css
 	cd $(srcdir)/gtk-3.0 && ./parse-sass.sh
 	$(MKDIR_P) $(themedir)
@@ -423,7 +430,6 @@ all:
 	cp -r $(srcdir)/gtk-3.0/gtk-contained.css $(lthemedir)/gtk-3.0/gtk.css
 	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(lthemedir)/gtk-3.0/gtk-dark.css
 	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(dthemedir)/gtk-3.0/gtk.css
-
 @ENABLE_GDM_TRUE@	$(MKDIR_P) $(themedir)/gdm
 @ENABLE_GDM_TRUE@	$(MKDIR_P) $(themedir)/gdm/dark
 @ENABLE_GDM_TRUE@	$(MKDIR_P) $(themedir)/gdm/light

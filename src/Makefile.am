@@ -6,6 +6,15 @@ dthemedir  = $(themedir)/AdG-Dark
 lthemedir  = $(themedir)/AdG-Light
 
 all:
+if ENABLE_ASSETS
+	rm $(srcdir)/gtk-3.0/assets/*.png
+	cd $(srcdir)/gtk-3.0 && ./render-assets.sh
+	cp $(srcdir)/gtk-3.0/common/* $(srcdir)/gtk-3.0/assets/
+	rm $(srcdir)/gtk-2.0/assets/*.png
+	rm $(srcdir)/gtk-2.0/assets-dark/*.png
+	cd $(srcdir)/gtk-2.0 && ./render-assets.sh
+	cd $(srcdir)/gtk-2.0 && ./render-assets-external.sh
+endif ENABLE_ASSETS
 	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css && sassc gnome-shell-light.scss gnome-shell-light.css
 	cd $(srcdir)/gtk-3.0 && ./parse-sass.sh
 	$(MKDIR_P) $(themedir)
@@ -33,7 +42,6 @@ all:
 	cp -r $(srcdir)/gtk-3.0/gtk-contained.css $(lthemedir)/gtk-3.0/gtk.css
 	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(lthemedir)/gtk-3.0/gtk-dark.css
 	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(dthemedir)/gtk-3.0/gtk.css
-
 if ENABLE_GDM
 	$(MKDIR_P) $(themedir)/gdm
 	$(MKDIR_P) $(themedir)/gdm/dark

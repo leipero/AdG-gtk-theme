@@ -12,10 +12,16 @@ if test x"$SASSC" = x; then
 fi
 
 AC_ARG_ENABLE(gdm,
-    [  --enable-gdm         Include gdm theme],
+    [  --enable-gdm         Build GDM theme],
     [ENABLE_GDM="$enableval"],
     [ENABLE_GDM="no"])
 AM_CONDITIONAL([ENABLE_GDM], [test "x$ENABLE_GDM" = "xyes"])
+
+AC_ARG_ENABLE(assets,
+    [  --enable-assets         Render GTK assets],
+    [ENABLE_ASSETS="$enableval"],
+    [ENABLE_ASSETS="no"])
+AM_CONDITIONAL([ENABLE_ASSETS], [test "x$ENABLE_ASSETS" = "xyes"])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile])

@@ -22,7 +22,12 @@ Building requirements:
       make
       sudo make install
       
-#### Build GDM theme with (you need to install it manually):
+#### Other bulding options for:
+
+      --enable-gdm          (Build GDM themes)
+      --enable-assets       (Render GTK assets)
+      
+For example:
 
       ./configure --enable-gdm
       make
