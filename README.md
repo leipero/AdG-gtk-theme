@@ -22,7 +22,7 @@ Building requirements:
       make
       sudo make install
       
-#### Build GDM theme with (you need to install it manutally):
+#### Build GDM theme with (you need to install it manually):
 
       ./configure --enable-gdm
       make
