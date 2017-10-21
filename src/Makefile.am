@@ -34,6 +34,24 @@ all:
 	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(lthemedir)/gtk-3.0/gtk-dark.css
 	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(dthemedir)/gtk-3.0/gtk.css
 
+if ENABLE_GDM
+	$(MKDIR_P) $(themedir)/gdm
+	$(MKDIR_P) $(themedir)/gdm/dark
+	$(MKDIR_P) $(themedir)/gdm/light
+	cp -r $(srcdir)/gnome-shell/assets $(themedir)/gdm
+	cp $(srcdir)/gnome-shell/gnome-shell-light.css $(themedir)/gdm
+	cp $(srcdir)/gnome-shell/gnome-shell.css $(themedir)/gdm
+	cp $(srcdir)/gnome-shell/gdm/gnome-shell-theme.gresource.xml $(themedir)/gdm
+	cd $(themedir)/gdm && glib-compile-resources gnome-shell-theme.gresource.xml
+	mv $(themedir)/gdm/gnome-shell-light.css $(themedir)/gdm/gnome-shell.css
+	mv $(themedir)/gdm/gnome-shell-theme.gresource $(themedir)/gdm/dark
+	cd $(themedir)/gdm && glib-compile-resources gnome-shell-theme.gresource.xml
+	mv $(themedir)/gdm/gnome-shell-theme.gresource $(themedir)/gdm/light
+	rm -rf $(themedir)/gdm/assets
+	rm $(themedir)/gdm/gnome-shell-theme.gresource.xml
+	rm $(themedir)/gdm/gnome-shell.css
+endif ENABLE_GDM
+
 
 EXTRA_DIST = $(srcdir)/gnome-shell \
 	     $(srcdir)/gtk-2.0 \

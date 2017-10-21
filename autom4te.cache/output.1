@@ -586,6 +586,8 @@ PACKAGE_URL=''
 
 ac_subst_vars='LTLIBOBJS
 LIB@&t@OBJS
+ENABLE_GDM_FALSE
+ENABLE_GDM_TRUE
 SASSC
 AM_BACKSLASH
 AM_DEFAULT_VERBOSITY
@@ -656,6 +658,7 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 enable_silent_rules
+enable_gdm
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1276,6 +1279,7 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-silent-rules   less verbose build output (undo: "make V=1")
   --disable-silent-rules  verbose build output (undo: "make V=0")
+  --enable-gdm         Include gdm theme
 
 Report bugs to <https://github.com/leipero/adg-gtk-theme>.
 _ACEOF
@@ -2285,7 +2289,6 @@ END
 fi
 
 
-# Checks for programs.
 
 # Extract the first word of "sassc", so it can be a program name with args.
 set dummy sassc; ac_word=$2
@@ -2331,13 +2334,21 @@ if test x"$SASSC" = x; then
 	as_fn_error $? "'sassc' not found." "$LINENO" 5
 fi
 
-# Checks for libraries.
+@%:@ Check whether --enable-gdm was given.
+if test "${enable_gdm+set}" = set; then :
+  enableval=$enable_gdm; ENABLE_GDM="$enableval"
+else
+  ENABLE_GDM="no"
+fi
 
-# Checks for header files.
+ if test "x$ENABLE_GDM" = "xyes"; then
+  ENABLE_GDM_TRUE=
+  ENABLE_GDM_FALSE='#'
+else
+  ENABLE_GDM_TRUE='#'
+  ENABLE_GDM_FALSE=
+fi
 
-# Checks for typedefs, structures, and compiler characteristics.
-
-# Checks for library functions.
 
 ac_config_files="$ac_config_files Makefile src/Makefile"
 
@@ -2495,6 +2506,10 @@ $as_echo_n "checking that generated files are newer than configure... " >&6; }
    { $as_echo "$as_me:${as_lineno-$LINENO}: result: done" >&5
 $as_echo "done" >&6; }
 
+if test -z "${ENABLE_GDM_TRUE}" && test -z "${ENABLE_GDM_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_GDM\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 
 : "${CONFIG_STATUS=./config.status}"
 ac_write_fail=0
