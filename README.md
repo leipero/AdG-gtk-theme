@@ -22,7 +22,7 @@ Building requirements:
       make
       sudo make install
       
-#### Other bulding options for:
+#### Other building options:
 
       --enable-gdm          (Build GDM themes)
       --enable-assets       (Render GTK assets)
