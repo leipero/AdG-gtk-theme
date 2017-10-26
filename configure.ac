@@ -23,6 +23,7 @@ AC_ARG_ENABLE(assets,
     [ENABLE_ASSETS="no"])
 AM_CONDITIONAL([ENABLE_ASSETS], [test "x$ENABLE_ASSETS" = "xyes"])
 
+AC_PREFIX_DEFAULT(/usr/share/themes/)
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
 AC_OUTPUT

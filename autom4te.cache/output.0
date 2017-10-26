@@ -584,6 +584,7 @@ PACKAGE_STRING='adg-gtk-theme 3.22.3'
 PACKAGE_BUGREPORT='https://github.com/leipero/adg-gtk-theme'
 PACKAGE_URL=''
 
+ac_default_prefix=/usr/share/themes/
 ac_subst_vars='LTLIBOBJS
 LIB@&t@OBJS
 ENABLE_ASSETS_FALSE
@@ -2368,6 +2369,7 @@ else
   ENABLE_ASSETS_TRUE='#'
   ENABLE_ASSETS_FALSE=
 fi
+
 
 
 ac_config_files="$ac_config_files Makefile src/Makefile"

@@ -5,9 +5,7 @@ themedir   = $(bdir)/themes
 dthemedir  = $(themedir)/AdG-Dark
 lthemedir  = $(themedir)/AdG-Light
 
-ithemedir  = $(DESTDIR)
-
-DESTDIR=/usr/share/
+DESTDIR=$(prefix)
 
 EXTRA_DIST = \
 	README.md \
@@ -23,10 +21,12 @@ CLEANFILES = $(srcdir)/config.log \
 DISTCLEANFILES = $(CLEANFILES)
 
 install-data-local:
-	cp -r $(themedir) $(ithemedir)
+	$(MKDIR_P) $(DESTDIR)
+	cp -r $(dthemedir) $(DESTDIR)
+	cp -r $(lthemedir) $(DESTDIR)
 
 uninstall-local:
-	rm -rf $(ithemedir)themes/AdG-Dark
-	rm -rf $(ithemedir)themes/AdG-Light
+	rm -rf $(DESTDIR)/AdG-Dark
+	rm -rf $(DESTDIR)/AdG-Light
 
 
