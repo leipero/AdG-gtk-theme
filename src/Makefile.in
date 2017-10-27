@@ -195,6 +195,9 @@ bdir = $(top_srcdir)/build-aux
 themedir = $(bdir)/themes
 dthemedir = $(themedir)/AdG-Dark
 lthemedir = $(themedir)/AdG-Light
+gdmdir = $(themedir)/gdm
+dgdmdir = $(gdmdir)/dark
+lgdmdir = $(gdmdir)/light
 EXTRA_DIST = $(srcdir)/gnome-shell \
 	     $(srcdir)/gtk-2.0 \
 	     $(srcdir)/gtk-3.0 \
@@ -403,48 +406,67 @@ all:
 @ENABLE_ASSETS_TRUE@	rm $(srcdir)/gtk-2.0/assets-dark/*.png
 @ENABLE_ASSETS_TRUE@	cd $(srcdir)/gtk-2.0 && ./render-assets.sh
 @ENABLE_ASSETS_TRUE@	cd $(srcdir)/gtk-2.0 && ./render-assets-external.sh
-	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css && sassc gnome-shell-light.scss gnome-shell-light.css
-	cd $(srcdir)/gtk-3.0 && ./parse-sass.sh
-	$(MKDIR_P) $(themedir)
-	$(MKDIR_P) $(lthemedir)/gnome-shell
-	$(MKDIR_P) $(dthemedir)/gnome-shell
-	$(MKDIR_P) $(lthemedir)/gtk-2.0
-	$(MKDIR_P) $(dthemedir)/gtk-2.0
-	$(MKDIR_P) $(lthemedir)/gtk-3.0
-	$(MKDIR_P) $(dthemedir)/gtk-3.0
-	cp $(srcdir)/index.theme $(lthemedir)
-	cp $(srcdir)/dark-index.theme $(dthemedir)
-	cp -r $(srcdir)/gnome-shell/assets $(lthemedir)/gnome-shell
-	cp -r $(srcdir)/gnome-shell/assets $(dthemedir)/gnome-shell
-	cp $(srcdir)/gnome-shell/gnome-shell-light.css $(lthemedir)/gnome-shell/gnome-shell.css
-	cp $(srcdir)/gnome-shell/gnome-shell.css $(dthemedir)/gnome-shell/gnome-shell.css
-	cp $(srcdir)/gtk-2.0/*.rc $(lthemedir)/gtk-2.0
-	cp $(srcdir)/gtk-2.0/*.rc $(dthemedir)/gtk-2.0
-	cp -r $(srcdir)/gtk-2.0/assets $(lthemedir)/gtk-2.0
-	cp -r $(srcdir)/gtk-2.0/assets-dark $(dthemedir)/gtk-2.0/assets
-	cp $(srcdir)/gtk-2.0/gtkrc $(lthemedir)/gtk-2.0
-	cp $(srcdir)/gtk-2.0/gtkrc-dark $(dthemedir)/gtk-2.0/gtkrc
-	rm $(lthemedir)/gtk-2.0/hacks-dark.rc
-	cp -r $(srcdir)/gtk-3.0/assets $(lthemedir)/gtk-3.0/
-	cp -r $(srcdir)/gtk-3.0/assets $(dthemedir)/gtk-3.0/
-	cp -r $(srcdir)/gtk-3.0/gtk-contained.css $(lthemedir)/gtk-3.0/gtk.css
-	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(lthemedir)/gtk-3.0/gtk-dark.css
-	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(dthemedir)/gtk-3.0/gtk.css
-@ENABLE_GDM_TRUE@	$(MKDIR_P) $(themedir)/gdm
-@ENABLE_GDM_TRUE@	$(MKDIR_P) $(themedir)/gdm/dark
-@ENABLE_GDM_TRUE@	$(MKDIR_P) $(themedir)/gdm/light
-@ENABLE_GDM_TRUE@	cp -r $(srcdir)/gnome-shell/assets $(themedir)/gdm
-@ENABLE_GDM_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell-light.css $(themedir)/gdm
-@ENABLE_GDM_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell.css $(themedir)/gdm
-@ENABLE_GDM_TRUE@	cp $(srcdir)/gnome-shell/gdm/gnome-shell-theme.gresource.xml $(themedir)/gdm
-@ENABLE_GDM_TRUE@	cd $(themedir)/gdm && glib-compile-resources gnome-shell-theme.gresource.xml
-@ENABLE_GDM_TRUE@	mv $(themedir)/gdm/gnome-shell-light.css $(themedir)/gdm/gnome-shell.css
-@ENABLE_GDM_TRUE@	mv $(themedir)/gdm/gnome-shell-theme.gresource $(themedir)/gdm/dark
-@ENABLE_GDM_TRUE@	cd $(themedir)/gdm && glib-compile-resources gnome-shell-theme.gresource.xml
-@ENABLE_GDM_TRUE@	mv $(themedir)/gdm/gnome-shell-theme.gresource $(themedir)/gdm/light
-@ENABLE_GDM_TRUE@	rm -rf $(themedir)/gdm/assets
-@ENABLE_GDM_TRUE@	rm $(themedir)/gdm/gnome-shell-theme.gresource.xml
-@ENABLE_GDM_TRUE@	rm $(themedir)/gdm/gnome-shell.css
+@ENABLE_GNOME_SHELL_TRUE@	$(MKDIR_P) $(lthemedir)/gnome-shell
+@ENABLE_GNOME_SHELL_TRUE@	$(MKDIR_P) $(dthemedir)/gnome-shell
+@ENABLE_GNOME_SHELL_TRUE@	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css && sassc gnome-shell-light.scss gnome-shell-light.css
+@ENABLE_GNOME_SHELL_TRUE@	cp -r $(srcdir)/gnome-shell/assets $(lthemedir)/gnome-shell
+@ENABLE_GNOME_SHELL_TRUE@	cp -r $(srcdir)/gnome-shell/assets $(dthemedir)/gnome-shell
+@ENABLE_GNOME_SHELL_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell-light.css $(lthemedir)/gnome-shell/gnome-shell.css
+@ENABLE_GNOME_SHELL_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell.css $(dthemedir)/gnome-shell/gnome-shell.css
+@ENABLE_GTK_TRUE@	$(MKDIR_P) $(lthemedir)/gtk-2.0
+@ENABLE_GTK_TRUE@	$(MKDIR_P) $(dthemedir)/gtk-2.0
+@ENABLE_GTK_TRUE@	$(MKDIR_P) $(lthemedir)/gtk-3.0
+@ENABLE_GTK_TRUE@	$(MKDIR_P) $(dthemedir)/gtk-3.0
+@ENABLE_GTK_TRUE@	cd $(srcdir)/gtk-3.0 && ./parse-sass.sh
+@ENABLE_GTK_TRUE@	cp $(srcdir)/index.theme $(lthemedir)
+@ENABLE_GTK_TRUE@	cp $(srcdir)/dark-index.theme $(dthemedir)
+@ENABLE_GTK_TRUE@	cp $(srcdir)/gtk-2.0/*.rc $(lthemedir)/gtk-2.0
+@ENABLE_GTK_TRUE@	cp $(srcdir)/gtk-2.0/*.rc $(dthemedir)/gtk-2.0
+@ENABLE_GTK_TRUE@	cp -r $(srcdir)/gtk-2.0/assets $(lthemedir)/gtk-2.0
+@ENABLE_GTK_TRUE@	cp -r $(srcdir)/gtk-2.0/assets-dark $(dthemedir)/gtk-2.0/assets
+@ENABLE_GTK_TRUE@	cp $(srcdir)/gtk-2.0/gtkrc $(lthemedir)/gtk-2.0
+@ENABLE_GTK_TRUE@	cp $(srcdir)/gtk-2.0/gtkrc-dark $(dthemedir)/gtk-2.0/gtkrc
+@ENABLE_GTK_TRUE@	rm $(lthemedir)/gtk-2.0/hacks-dark.rc
+@ENABLE_GTK_TRUE@	cp -r $(srcdir)/gtk-3.0/assets $(lthemedir)/gtk-3.0/
+@ENABLE_GTK_TRUE@	cp -r $(srcdir)/gtk-3.0/assets $(dthemedir)/gtk-3.0/
+@ENABLE_GTK_TRUE@	cp -r $(srcdir)/gtk-3.0/gtk-contained.css $(lthemedir)/gtk-3.0/gtk.css
+@ENABLE_GTK_TRUE@	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(lthemedir)/gtk-3.0/gtk-dark.css
+@ENABLE_GTK_TRUE@	cp -r $(srcdir)/gtk-3.0/gtk-contained-dark.css $(dthemedir)/gtk-3.0/gtk.css
+@ENABLE_GDM_TRUE@	$(MKDIR_P) $(dgdmdir)
+@ENABLE_GDM_TRUE@	$(MKDIR_P) $(lgdmdir)
+@ENABLE_GDM_TRUE@	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css && sassc gnome-shell-light.scss gnome-shell-light.css
+@ENABLE_GDM_TRUE@	cp -r $(srcdir)/gnome-shell/assets $(gdmdir)
+@ENABLE_GDM_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell-light.css $(gdmdir)
+@ENABLE_GDM_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell.css $(gdmdir)
+@ENABLE_GDM_TRUE@	cp $(srcdir)/gnome-shell/gdm/gnome-shell-theme.gresource.xml $(gdmdir)
+@ENABLE_GDM_TRUE@	cd $(gdmdir) && glib-compile-resources gnome-shell-theme.gresource.xml
+@ENABLE_GDM_TRUE@	mv $(gdmdir)/gnome-shell-light.css $(gdmdir)/gnome-shell.css
+@ENABLE_GDM_TRUE@	mv $(gdmdir)/gnome-shell-theme.gresource $(dgdmdir)
+@ENABLE_GDM_TRUE@	cd $(gdmdir) && glib-compile-resources gnome-shell-theme.gresource.xml
+@ENABLE_GDM_TRUE@	mv $(gdmdir)/gnome-shell-theme.gresource $(lgdmdir)
+@ENABLE_GDM_TRUE@	rm -rf $(gdmdir)/assets
+@ENABLE_GDM_TRUE@	rm $(gdmdir)/gnome-shell-theme.gresource.xml
+@ENABLE_GDM_TRUE@	rm $(gdmdir)/gnome-shell.css
+@ENABLE_GDM_DARK_TRUE@	$(MKDIR_P) $(dgdmdir)
+@ENABLE_GDM_DARK_TRUE@	cd $(srcdir)/gnome-shell && sassc gnome-shell.scss gnome-shell.css
+@ENABLE_GDM_DARK_TRUE@	cp -r $(srcdir)/gnome-shell/assets $(gdmdir)
+@ENABLE_GDM_DARK_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell.css $(gdmdir)
+@ENABLE_GDM_DARK_TRUE@	cp $(srcdir)/gnome-shell/gdm/gnome-shell-theme.gresource.xml $(gdmdir)
+@ENABLE_GDM_DARK_TRUE@	cd $(gdmdir) && glib-compile-resources gnome-shell-theme.gresource.xml
+@ENABLE_GDM_DARK_TRUE@	mv $(gdmdir)/gnome-shell-theme.gresource $(dgdmdir)
+@ENABLE_GDM_DARK_TRUE@	rm -rf $(gdmdir)/assets
+@ENABLE_GDM_DARK_TRUE@	rm $(gdmdir)/gnome-shell-theme.gresource.xml
+@ENABLE_GDM_DARK_TRUE@	rm $(gdmdir)/gnome-shell.css
+@ENABLE_GDM_LIGHT_TRUE@	$(MKDIR_P) $(lgdmdir)
+@ENABLE_GDM_LIGHT_TRUE@	cd $(srcdir)/gnome-shell && sassc gnome-shell-light.scss gnome-shell-light.css
+@ENABLE_GDM_LIGHT_TRUE@	cp -r $(srcdir)/gnome-shell/assets $(gdmdir)
+@ENABLE_GDM_LIGHT_TRUE@	cp $(srcdir)/gnome-shell/gnome-shell-light.css $(gdmdir)/gnome-shell.css
+@ENABLE_GDM_LIGHT_TRUE@	cp $(srcdir)/gnome-shell/gdm/gnome-shell-theme.gresource.xml $(gdmdir)
+@ENABLE_GDM_LIGHT_TRUE@	cd $(gdmdir) && glib-compile-resources gnome-shell-theme.gresource.xml
+@ENABLE_GDM_LIGHT_TRUE@	mv $(gdmdir)/gnome-shell-theme.gresource $(lgdmdir)
+@ENABLE_GDM_LIGHT_TRUE@	rm -rf $(gdmdir)/assets
+@ENABLE_GDM_LIGHT_TRUE@	rm $(gdmdir)/gnome-shell-theme.gresource.xml
+@ENABLE_GDM_LIGHT_TRUE@	rm $(gdmdir)/gnome-shell.css
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

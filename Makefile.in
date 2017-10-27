@@ -278,6 +278,10 @@ bdir = $(top_srcdir)/build-aux
 themedir = $(bdir)/themes
 dthemedir = $(themedir)/AdG-Dark
 lthemedir = $(themedir)/AdG-Light
+gdmdir = $(themedir)/gdm
+dgdmdir = $(gdmdir)/dark
+lgdmdir = $(gdmdir)/light
+igdmdir = /usr/share/gnome-shell
 DESTDIR = $(prefix)
 EXTRA_DIST = \
 	README.md \
@@ -749,13 +753,25 @@ uninstall-am: uninstall-local
 
 
 install-data-local:
-	$(MKDIR_P) $(DESTDIR)
-	cp -r $(dthemedir) $(DESTDIR)
-	cp -r $(lthemedir) $(DESTDIR)
+@ENABLE_GTK_TRUE@	$(MKDIR_P) $(DESTDIR)
+@ENABLE_GTK_TRUE@	cp -r $(dthemedir) $(DESTDIR)
+@ENABLE_GTK_TRUE@	cp -r $(lthemedir) $(DESTDIR)
+@ENABLE_GDM_DARK_TRUE@	mv $(igdmdir)/gnome-shell-theme.gresource $(igdmdir)/gnome-shell-theme.gresource.bak
+@ENABLE_GDM_DARK_TRUE@	cp $(dgdmdir)/gnome-shell-theme.gresource $(igdmdir)
+@ENABLE_GDM_DARK_TRUE@	printf "\033[1;31mRestart GDM or reboot in order for the changes to take effect\033[0m\n"
+@ENABLE_GDM_LIGHT_TRUE@	mv $(igdmdir)/gnome-shell-theme.gresource $(igdmdir)/gnome-shell-theme.gresource.bak
+@ENABLE_GDM_LIGHT_TRUE@	cp $(lgdmdir)/gnome-shell-theme.gresource $(igdmdir)
+@ENABLE_GDM_LIGHT_TRUE@	printf "\033[1;31mRestart GDM or reboot in order for the changes to take effect\033[0m\n"
 
 uninstall-local:
-	rm -rf $(DESTDIR)/AdG-Dark
-	rm -rf $(DESTDIR)/AdG-Light
+@ENABLE_GTK_TRUE@	rm -rf $(DESTDIR)/AdG-Dark
+@ENABLE_GTK_TRUE@	rm -rf $(DESTDIR)/AdG-Light
+@ENABLE_GDM_DARK_TRUE@	rm $(igdmdir)/gnome-shell-theme.gresource
+@ENABLE_GDM_DARK_TRUE@	mv $(igdmdir)/gnome-shell-theme.gresource.bak $(igdmdir)/gnome-shell-theme.gresource
+@ENABLE_GDM_DARK_TRUE@	printf "\033[1;31mRestart GDM or reboot in order for the changes to take effect\033[0m\n"
+@ENABLE_GDM_LIGHT_TRUE@	rm $(igdmdir)/gnome-shell-theme.gresource
+@ENABLE_GDM_LIGHT_TRUE@	mv $(igdmdir)/gnome-shell-theme.gresource.bak $(igdmdir)/gnome-shell-theme.gresource
+@ENABLE_GDM_LIGHT_TRUE@	printf "\033[1;31mRestart GDM or reboot in order for the changes to take effect\033[0m\n"
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -587,10 +587,18 @@ PACKAGE_URL=''
 ac_default_prefix=/usr/share/themes/
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
-ENABLE_ASSETS_FALSE
-ENABLE_ASSETS_TRUE
+ENABLE_GDM_LIGHT_FALSE
+ENABLE_GDM_LIGHT_TRUE
+ENABLE_GDM_DARK_FALSE
+ENABLE_GDM_DARK_TRUE
+ENABLE_GNOME_SHELL_FALSE
+ENABLE_GNOME_SHELL_TRUE
+ENABLE_GTK_FALSE
+ENABLE_GTK_TRUE
 ENABLE_GDM_FALSE
 ENABLE_GDM_TRUE
+ENABLE_ASSETS_FALSE
+ENABLE_ASSETS_TRUE
 SASSC
 AM_BACKSLASH
 AM_DEFAULT_VERBOSITY
@@ -661,8 +669,12 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 enable_silent_rules
-enable_gdm
 enable_assets
+enable_gdm
+enable_gtk
+enable_gnome_shell
+enable_gdm_dark
+enable_gdm_light
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1283,8 +1295,12 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-silent-rules   less verbose build output (undo: "make V=1")
   --disable-silent-rules  verbose build output (undo: "make V=0")
-  --enable-gdm         Build GDM theme
-  --enable-assets         Render GTK assets
+  --enable-assets          Render GTK assets
+  --enable-gdm             Build both GDM themes without installing them.
+  --disable-gtk            Disable GTK building and installation.
+  --disable-gnome-shell    Disable Gnome-Shell building and installation.
+  --enable-gdm-dark        Build and install Dark GDM theme, use with caution!
+  --enable-gdm-light       Build and install Light GDM theme, use with caution!
 
 Report bugs to <https://github.com/leipero/adg-gtk-theme>.
 _ACEOF
@@ -2293,6 +2309,44 @@ END
   fi
 fi
 
+# Check whether --enable-silent-rules was given.
+if test "${enable_silent_rules+set}" = set; then :
+  enableval=$enable_silent_rules;
+fi
+
+case $enable_silent_rules in # (((
+  yes) AM_DEFAULT_VERBOSITY=0;;
+   no) AM_DEFAULT_VERBOSITY=1;;
+    *) AM_DEFAULT_VERBOSITY=0;;
+esac
+am_make=${MAKE-make}
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
+$as_echo_n "checking whether $am_make supports nested variables... " >&6; }
+if ${am_cv_make_support_nested_variables+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if $as_echo 'TRUE=$(BAR$(V))
+BAR0=false
+BAR1=true
+V=1
+am__doit:
+	@$(TRUE)
+.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
+  am_cv_make_support_nested_variables=yes
+else
+  am_cv_make_support_nested_variables=no
+fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
+$as_echo "$am_cv_make_support_nested_variables" >&6; }
+if test $am_cv_make_support_nested_variables = yes; then
+    AM_V='$(V)'
+  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
+else
+  AM_V=$AM_DEFAULT_VERBOSITY
+  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
+fi
+AM_BACKSLASH='\'
 
 
 # Extract the first word of "sassc", so it can be a program name with args.
@@ -2339,9 +2393,25 @@ if test x"$SASSC" = x; then
 	as_fn_error $? "'sassc' not found." "$LINENO" 5
 fi
 
+# Check whether --enable-assets was given.
+if test "${enable_assets+set}" = set; then :
+  enableval=$enable_assets; ENABLE_ASSETS="yes"
+else
+  ENABLE_ASSETS="no"
+fi
+
+ if test "x$ENABLE_ASSETS" = "xyes"; then
+  ENABLE_ASSETS_TRUE=
+  ENABLE_ASSETS_FALSE='#'
+else
+  ENABLE_ASSETS_TRUE='#'
+  ENABLE_ASSETS_FALSE=
+fi
+
+
 # Check whether --enable-gdm was given.
 if test "${enable_gdm+set}" = set; then :
-  enableval=$enable_gdm; ENABLE_GDM="$enableval"
+  enableval=$enable_gdm; ENABLE_GDM="yes"
 else
   ENABLE_GDM="no"
 fi
@@ -2355,19 +2425,67 @@ else
 fi
 
 
-# Check whether --enable-assets was given.
-if test "${enable_assets+set}" = set; then :
-  enableval=$enable_assets; ENABLE_ASSETS="$enableval"
+# Check whether --enable-gtk was given.
+if test "${enable_gtk+set}" = set; then :
+  enableval=$enable_gtk; ENABLE_GTK="yes"
 else
-  ENABLE_ASSETS="no"
+  ENABLE_GTK="no"
 fi
 
- if test "x$ENABLE_ASSETS" = "xyes"; then
-  ENABLE_ASSETS_TRUE=
-  ENABLE_ASSETS_FALSE='#'
+ if test "x$ENABLE_GTK" = "xno"; then
+  ENABLE_GTK_TRUE=
+  ENABLE_GTK_FALSE='#'
 else
-  ENABLE_ASSETS_TRUE='#'
-  ENABLE_ASSETS_FALSE=
+  ENABLE_GTK_TRUE='#'
+  ENABLE_GTK_FALSE=
+fi
+
+
+# Check whether --enable-gnome-shell was given.
+if test "${enable_gnome_shell+set}" = set; then :
+  enableval=$enable_gnome_shell; ENABLE_GNOME_SHELL="yes"
+else
+  ENABLE_GNOME_SHELL="no"
+fi
+
+ if test "x$ENABLE_GNOME_SHELL" = "xno"; then
+  ENABLE_GNOME_SHELL_TRUE=
+  ENABLE_GNOME_SHELL_FALSE='#'
+else
+  ENABLE_GNOME_SHELL_TRUE='#'
+  ENABLE_GNOME_SHELL_FALSE=
+fi
+
+
+# Check whether --enable-gdm-dark was given.
+if test "${enable_gdm_dark+set}" = set; then :
+  enableval=$enable_gdm_dark; ENABLE_GDM_DARK="yes"
+else
+  ENABLE_GDM_DARK="no"
+fi
+
+ if test "x$ENABLE_GDM_DARK" = "xyes"; then
+  ENABLE_GDM_DARK_TRUE=
+  ENABLE_GDM_DARK_FALSE='#'
+else
+  ENABLE_GDM_DARK_TRUE='#'
+  ENABLE_GDM_DARK_FALSE=
+fi
+
+
+# Check whether --enable-gdm-light was given.
+if test "${enable_gdm_light+set}" = set; then :
+  enableval=$enable_gdm_light; ENABLE_GDM_LIGHT="yes"
+else
+  ENABLE_GDM_LIGHT="no"
+fi
+
+ if test "x$ENABLE_GDM_LIGHT" = "xyes"; then
+  ENABLE_GDM_LIGHT_TRUE=
+  ENABLE_GDM_LIGHT_FALSE='#'
+else
+  ENABLE_GDM_LIGHT_TRUE='#'
+  ENABLE_GDM_LIGHT_FALSE=
 fi
 
 
@@ -2528,12 +2646,28 @@ $as_echo_n "checking that generated files are newer than configure... " >&6; }
    { $as_echo "$as_me:${as_lineno-$LINENO}: result: done" >&5
 $as_echo "done" >&6; }
 
+if test -z "${ENABLE_ASSETS_TRUE}" && test -z "${ENABLE_ASSETS_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_ASSETS\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${ENABLE_GDM_TRUE}" && test -z "${ENABLE_GDM_FALSE}"; then
   as_fn_error $? "conditional \"ENABLE_GDM\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${ENABLE_ASSETS_TRUE}" && test -z "${ENABLE_ASSETS_FALSE}"; then
-  as_fn_error $? "conditional \"ENABLE_ASSETS\" was never defined.
+if test -z "${ENABLE_GTK_TRUE}" && test -z "${ENABLE_GTK_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_GTK\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${ENABLE_GNOME_SHELL_TRUE}" && test -z "${ENABLE_GNOME_SHELL_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_GNOME_SHELL\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${ENABLE_GDM_DARK_TRUE}" && test -z "${ENABLE_GDM_DARK_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_GDM_DARK\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${ENABLE_GDM_LIGHT_TRUE}" && test -z "${ENABLE_GDM_LIGHT_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_GDM_LIGHT\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
