@@ -31,6 +31,8 @@ Building requirements:
       --enable-gdm-dark        Build and install Dark GDM theme, use with caution!
       --enable-gdm-light       Build and install Light GDM theme, use with caution!
 
+If you disable GTK theme (--disable-gtk) Gnome-Shell theme will be built but not installed (will be available in build directory).
+
 #### GDM themes:
 
 Installation (`make install`) of GDM themes requires root privileges regardless of prefix used, if installing locally but you want to build GDM themes, use `--enable-gdm` and follow Option 2 in this readme.
@@ -41,7 +43,7 @@ Installation (`make install`) of GDM themes requires root privileges regardless 
       make
       sudo make install
 
-you can't use `--enable-gdm-dark` at the same time (and vice-versa), if you use both, durring instalation last one will be installed. If you disable GTK theme (`--disable-gtk`) Gnome-Shell theme will be built but not installed (will be available in build directory).
+you can't use `--enable-gdm-dark` at the same time (and vice-versa), if you use both, durring instalation last one will be installed.
       
 ##### GDM Option 2:
 
