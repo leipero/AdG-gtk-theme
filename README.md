@@ -24,12 +24,12 @@ Building requirements:
       
 #### Other building options (./configure --help):
 
-      --enable-assets          Render GTK assets
-      --enable-gdm             Build both GDM themes without installing them.
-      --disable-gtk            Disable GTK building and installation.
-      --disable-gnome-shell    Disable Gnome-Shell building and installation.
-      --enable-gdm-dark        Build and install Dark GDM theme, use with caution!
-      --enable-gdm-light       Build and install Light GDM theme, use with caution!
+      --enable-assets         Render GTK assets
+      --enable-gdm            Build both GDM themes without installing them.
+      --disable-gtk           Disable GTK building and installation.
+      --disable-gnome-shell   Disable Gnome-Shell building and installation.
+      --enable-gdm-dark       Build and install Dark GDM theme, use with care!
+      --enable-gdm-light      Build and install Light GDM theme, use with care!
 
 If you disable GTK theme (--disable-gtk) Gnome-Shell theme will be built but not installed (will be available in build directory).
 
